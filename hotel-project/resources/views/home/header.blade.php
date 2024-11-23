@@ -38,9 +38,9 @@
                             </li>
                             @if (Route::has('login'))
                             @auth
-                                <x-app-layout>
+                            <x-app-layout>
 
-                                </x-app-layout>
+                            </x-app-layout>
                             @else
                                 <li class="nav-item" style="padding-right: 10px">
                                     <a class="btn btn-success" href="{{route('login')}}">login</a>
