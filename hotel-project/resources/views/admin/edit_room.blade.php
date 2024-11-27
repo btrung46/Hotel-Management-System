@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <base href="/public">
     @include('admin.css')
 </head>
 
@@ -14,11 +15,12 @@
         @include('admin.sidebar')
         <!-- Sidebar Navigation end-->
         <div class="page-content" style="padding: 150px;padding-top:100px">
-            <form method="post" action="{{ route('add_room') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('update_room',$room->id) }}" enctype="multipart/form-data">
                 @csrf
+                @method('put')
                 <div class="col-8">
                     <label for="room_title" class="form-label">Room title</label>
-                    <input type="text" class="form-control" id="room_title" name="room_title">
+                    <textarea type="text" class="form-control" id="room_title" name="room_title">{{$room->room_title}}</textarea>
 
                     @error('room_title')
                         <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
@@ -34,14 +36,14 @@
                 </div>
                 <div class="col-8">
                     <label for="description" class="form-label">Description</label>
-                    <input type="text" class="form-control" id="description" name="description">
+                    <textarea type="text" class="form-control" id="description" name="description"> {{$room->description}}</textarea>
                     @error('description')
                         <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
                     @enderror
                 </div>
                 <div class="col-8">
                     <label for="price" class="form-label">Price</label>
-                    <input type="number" class="form-control" id="price" name="price">
+                    <input type="number" class="form-control" id="price" name="price" value="{{$room->price}}"></input>
                     @error('price')
                         <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
                     @enderror
@@ -67,7 +69,7 @@
                         <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
                     @enderror
                 </div>
-                <div class="col-8"><button type="submit" class="btn btn-danger"">Add room</button></div>
+                <div class="col-8"><button type="submit" class="btn btn-info"">Update</button></div>
 
             </form>
         </div>

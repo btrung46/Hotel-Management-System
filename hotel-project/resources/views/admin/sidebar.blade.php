@@ -13,8 +13,7 @@
             <li class="{{(Request::routeIs('create_room')) ? 'active' : ''}}"><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Hotel Rooms </a>
               <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                 <li><a href="{{route('create_room')}}" >Add room</a></li>
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
+                <li><a href="{{route('view_room')}}">View room</a></li>
               </ul>
             </li>
   </nav>
