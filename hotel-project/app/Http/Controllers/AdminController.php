@@ -13,7 +13,8 @@ class AdminController extends Controller
         if(Auth::id()){
             $role = Auth::user()->role;
             if($role === 'user'){
-                return view('home.index');
+                $rooms = room::latest()->paginate(5);
+                return view('home.index',compact('rooms'));
             }
             else if ($role === 'admin'){
                 return view('admin.dashboard');
@@ -78,13 +79,13 @@ class AdminController extends Controller
         $room -> wifi = $valid['wifi'];
         $room -> room_type = $valid['room_type'];
 
-        $image = $valid['image'];
-        if($image){
+        if($request->has('image')){
+            $image = $valid['image'];
             $oldImage = $room->image;
             $imagename = time().'.'.$image->getClientOriginalExtension();
             $request->image->move('room',$imagename);
             $room ->image  = $imagename;
-            if ($oldImage && File::exists(public_path('room/' . $oldImage))) {
+            if ($oldImage && File::exists(public_path(path: 'room/' . $oldImage))) {
                 File::delete(public_path('room/' . $oldImage));
             }
         }

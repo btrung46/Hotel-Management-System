@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
+use App\Models\room;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home.index');
+    $rooms = room::latest()->paginate(5);
+    return view('home.index',compact('rooms'));
 });
 
 Route::get('/home', [AdminController::class,'index'])->name('home');
@@ -26,5 +29,6 @@ Route::get('/delete_room/{room}', [AdminController::class,'delete_room'])->name(
 
 Route::get('/edit_room/{room}', [AdminController::class,'edit_room'])->name('edit_room');
 Route::put('/update_room/{room}', [AdminController::class,'update_room'])->name('update_room');
+Route::get('/room/{room}', [HomeController::class,'room_detail'])->name('room_detail');
 
-
+Route::post('/book_room/{id}', [HomeController::class,'book_room'])->name('book_room');
